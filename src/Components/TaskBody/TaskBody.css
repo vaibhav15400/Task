@@ -1,0 +1,83 @@
+.Task_Body {
+  border: 1px solid #cdcdcd;
+  border-top: none;
+  padding: 1rem;
+  border-radius: 0 0 4px 4px;
+}
+.Task_input {
+  width: 100%;
+  height: 3.7rem;
+  border: 1px solid #cdcdcd;
+  background-color: white;
+  border-radius: 5px;
+  outline: none;
+  padding: 0 1rem;
+  font-size: 1.2rem;
+}
+.Task_Body > div > p,
+.Task_Body > div > div > p {
+  font-size: 1.4rem;
+  margin-bottom: 5px;
+}
+.Task_Body > div {
+  margin: 1rem;
+}
+.D_T > div {
+  font-size: 1.4rem;
+  margin-bottom: 5px;
+}
+.D_T {
+  display: flex;
+}
+.Date_set {
+  width: 100px;
+  z-index: 500;
+  padding: 5px;
+  border: 1px solid #cdcdcd;
+  background-color: white;
+}
+.date {
+  position: relative;
+  margin: 5px 15px 5px 0;
+}
+.date_icon {
+  position: absolute;
+  right: 0;
+  margin: 7px;
+  cursor: pointer;
+  z-index: 1000;
+}
+.Time_set {
+  width: 90px;
+  z-index: 500;
+  padding: 5px;
+  border: 1px solid #cdcdcd;
+  background-color: white;
+}
+.time {
+  position: relative;
+  margin: 5px 15px 5px 0;
+}
+.time_icon {
+  position: absolute;
+  right: 0;
+  margin: 7px;
+  cursor: pointer;
+  z-index: 1000;
+}
+.submit_buttons {
+  display: flex;
+  margin: 20px;
+}
+.SUBMIT,
+.RESET {
+  background-color: #47ba7f;
+  padding: 10px;
+  border: none;
+  width: 50%;
+  margin-left: 20px;
+  border-radius: 9%;
+}
+.RESET {
+  background-color: #cdcdcd !important;
+}

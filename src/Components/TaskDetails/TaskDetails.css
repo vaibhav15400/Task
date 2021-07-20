@@ -1,0 +1,41 @@
+.Task_display {
+  width: 250px;
+  height: max-content;
+  margin-top: 4rem;
+  margin-left: 4rem;
+  background-color: #edf7fc;
+}
+.Task_Display_title {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #cdcdcd;
+  align-items: center;
+  border-radius: 4px 4px 0 0;
+  background-color: white;
+}
+.Task_title_primary {
+  font-size: 1.6rem;
+  border-right: 1px solid #cdcdcd;
+  text-transform: uppercase;
+  flex: 1 1;
+  text-align: left;
+  padding: 5px;
+}
+.Time_set {
+  width: 90px;
+  z-index: 500;
+  padding: 5px;
+  border: 1px solid #cdcdcd;
+  background-color: white;
+}
+.time {
+  position: relative;
+  margin: 5px 15px 5px 0;
+}
+.time_icon {
+  position: absolute;
+  right: 0;
+  margin: 7px;
+  cursor: pointer;
+  z-index: 1000;
+}

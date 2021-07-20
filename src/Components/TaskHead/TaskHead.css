@@ -1,0 +1,23 @@
+.TaskHead {
+  width: 250px;
+  height: max-content;
+  margin-top: 4rem;
+  margin-left: 4rem;
+  background-color: #edf7fc;
+}
+.Task_title {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #cdcdcd;
+  align-items: center;
+  border-radius: 4px 4px 0 0;
+  background-color: white;
+}
+.Task_title_primary {
+  font-size: 1.6rem;
+  border-right: 1px solid #cdcdcd;
+  text-transform: uppercase;
+  flex: 1 1;
+  text-align: left;
+  padding: 5px;
+}
