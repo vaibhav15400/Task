@@ -4,7 +4,7 @@ import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import TaskBody from '../TaskBody/TaskBody';
 
-const TaskHead = () => {
+const TaskHead = ({ i }) => {
   const [toggle, setToggle] = useState(false);
   function add_remove() {
     setToggle(p => !p);
@@ -15,7 +15,8 @@ const TaskHead = () => {
       <div className="Task_title">
         <p className="Task_title_primary">
           TASK &nbsp;
-          <span style={{ color: ' rgb(205, 205, 205)' }}>3</span>
+          <span style={{ color: ' rgb(205, 205, 205)' }}>{i}</span>
+          {console.log()}
         </p>
         <span onClick={add_remove} style={{ padding: '3%' }}>
           {toggle ? (
@@ -25,7 +26,7 @@ const TaskHead = () => {
           )}
         </span>
       </div>
-      {toggle ? <TaskBody /> : ' '}
+      {toggle ? <TaskBody className="animate" /> : ' '}
     </div>
   );
 };

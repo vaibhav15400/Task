@@ -17,7 +17,7 @@ const TaskBody = () => {
     axios
       .post(`https://task-93a9a-default-rtdb.firebaseio.com/task.json`, Data)
       .then(res => {
-        console.log(res);
+        window.location.reload();
         alert('sucess');
       });
   }
@@ -92,10 +92,10 @@ const TaskBody = () => {
               <option defaultValue="Please Select a user" className="select">
                 Please Select A Value
               </option>
-              <option className="select" value="banarasi">
+              <option className="select" value="Banarasi">
                 Banarasi
               </option>
-              <option className="select" value="user1">
+              <option className="select" value="User1">
                 user1
               </option>
             </select>
