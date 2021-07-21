@@ -7,6 +7,7 @@ import DatePicker from 'react-datepicker';
 import CheckIcon from '@material-ui/icons/Check';
 import './TaskDetails.css';
 import DeleteIcon from '@material-ui/icons/Delete';
+import transitions from '@material-ui/core/styles/transitions';
 
 const U_R_L = `https://task-93a9a-default-rtdb.firebaseio.com`;
 const TaskDetails = () => {
@@ -42,11 +43,24 @@ const TaskDetails = () => {
 };
 
 const Component = ({ item, id, active, setToggle }) => {
-  const newId = id.substring(1);
+  const [newData, setNewData] = useState({
+    task: ' ',
+    user: null,
+    startTime: new Date(),
+    startDate: new Date(),
+  });
+  const changeHandler = (field, newValue) => {
+    setNewData(prev => {
+      const old = { ...prev };
+      old[field] = newValue;
+      return old;
+    });
+  };
+
   const deleteData = async () => {
     await axios;
     axios
-      .delete(`${U_R_L}/task/${newId}.json`)
+      .delete(`${U_R_L}/task/${id}.json`)
       .then(response => {
         console.log(response);
       })
@@ -55,13 +69,10 @@ const Component = ({ item, id, active, setToggle }) => {
       });
   };
   const postData = async () => {
-    await axios.put(`${U_R_L}/task/${newId}.json`).then(res => {
+    await axios.put(`${U_R_L}/task/${id}.json`, newData).then(res => {
       console.log(res.data);
     });
   };
-
-  let taskTime = new Date(item.startTime);
-  let taskDate = new Date(item.startDate);
 
   return (
     <div className="Task_display">
@@ -75,10 +86,11 @@ const Component = ({ item, id, active, setToggle }) => {
             {item.startDate?.split('T')[0]}
           </span>
         </div>
-        <span style={{ padding: '3%' }}>
+        <span style={{ padding: '3%' }} className={active ? transitions : ''}>
           {active ? (
             <CheckIcon
-              fontSize="large"
+              style={{ fontSize: 26 }}
+              className="hover"
               onClick={() => {
                 setToggle(null);
                 postData();
@@ -87,6 +99,8 @@ const Component = ({ item, id, active, setToggle }) => {
           ) : (
             <EditIcon
               fontSize="large"
+              style={{ fontSize: 28 }}
+              className="hover"
               onClick={() => {
                 setToggle(id);
               }}
@@ -95,16 +109,21 @@ const Component = ({ item, id, active, setToggle }) => {
         </span>
       </div>
       {active ? (
-        <div>
+        <>
           <div>
-            <div className="Task_Body">
+            <form className="Task_Body">
               <div className="Task_Description">
                 <p>Task Description</p>
                 <input
+                  required
                   disabled={active ? false : true}
                   placeholder={item.task}
                   className="Task_input"
                   defaultValue={item.task}
+                  onChange={desp => {
+                    changeHandler('task', desp.target.value);
+                    console.log(desp.target.value);
+                  }}
                 />
               </div>
               <div className="D_T">
@@ -113,8 +132,12 @@ const Component = ({ item, id, active, setToggle }) => {
                   <div className="date">
                     <DatePicker
                       disabled={active ? false : true}
-                      selected={taskDate}
+                      selected={newData.startDate}
                       className="Date_set"
+                      onChange={date => {
+                        changeHandler('startDate', date);
+                        console.log(date);
+                      }}
                     />
                   </div>
                 </div>
@@ -122,14 +145,18 @@ const Component = ({ item, id, active, setToggle }) => {
                   <label>Time</label>
                   <div>
                     <DatePicker
-                      disabled={true}
-                      selected={taskTime}
+                      disabled={active ? false : true}
+                      selected={newData.startTime}
                       showTimeSelect
                       showTimeSelectOnly
                       timeIntervals={30}
                       timeCaption="Time"
                       dateFormat="h:mm aa"
                       className="Time_set"
+                      onChange={time => {
+                        changeHandler('startTime', time);
+                        console.log(time);
+                      }}
                     />
                   </div>
                 </div>
@@ -140,6 +167,10 @@ const Component = ({ item, id, active, setToggle }) => {
                   disabled={active ? false : true}
                   name="Please Select a user"
                   className="Task_input"
+                  onChange={dep => {
+                    changeHandler('user', dep.target.value);
+                    console.log(dep.target.value);
+                  }}
                 >
                   <option defaultValue={item.user} className="select">
                     {item.user}
@@ -153,11 +184,15 @@ const Component = ({ item, id, active, setToggle }) => {
                 </select>
               </div>
               <div className="hover">
-                <DeleteIcon onClick={deleteData} className="delete_icon" />
+                <DeleteIcon
+                  onClick={deleteData}
+                  className="delete_icon"
+                  fontSize="medium"
+                />
               </div>
-            </div>
+            </form>
           </div>
-        </div>
+        </>
       ) : (
         ' '
       )}

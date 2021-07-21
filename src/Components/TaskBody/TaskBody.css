@@ -40,28 +40,22 @@
   cursor: pointer;
 }
 
-.date::after {
-  background-image: url(../../assests/date.svg);
-  content: '';
-  top: 50%;
-  right: 5px;
-  transform: translateY(-50%);
+.Date_icon {
   height: 20px;
   width: 20px;
-  position: fixed;
   z-index: 1000;
   background-size: contain;
 }
 .date {
   position: relative;
   margin: 5px 15px 5px 0;
-  transform: translateY(0);
+  display: flex;
 }
-.date_icon {
+.Date_icon {
   position: absolute;
   right: 0;
-  opacity: 0.5;
-  margin: 7px;
+  color: rgb(158, 156, 158);
+  margin: 3px;
   cursor: pointer;
   z-index: 1000;
 }
@@ -78,19 +72,14 @@
   margin: 5px 15px 5px 0;
   transform: translateY(0);
 }
-.time::after {
-  background-image: url(../../assests/clock.svg);
-  content: '';
-  top: 60%;
-  right: 5px;
-  transform: translateY(-50%);
-  height: 20px;
-  width: 20px;
-  position: fixed;
+.Time_icon {
+  position: absolute;
+  right: 0;
+  color: rgb(158, 156, 158);
+  margin: 3px;
+  cursor: pointer;
   z-index: 1000;
-  background-size: contain;
 }
-
 .submit_buttons {
   display: flex;
   justify-content: center;

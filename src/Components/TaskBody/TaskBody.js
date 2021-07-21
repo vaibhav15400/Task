@@ -3,6 +3,8 @@ import './TaskBody.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
+import DateRangeIcon from '@material-ui/icons/DateRange';
+import ScheduleIcon from '@material-ui/icons/Schedule';
 
 const TaskBody = () => {
   const [Data, setData] = useState({
@@ -42,7 +44,7 @@ const TaskBody = () => {
               placeholder="Enter Task"
               className="Task_input"
               onChange={desp => {
-                changeHandler('task', desp.target.value);
+                changeHandler('task', desp.target.value.trim());
                 console.log(desp.target.value);
               }}
             />
@@ -51,6 +53,7 @@ const TaskBody = () => {
             <div className="Date">
               <label>Date</label>
               <div className="date">
+                <DateRangeIcon style={{ fontSize: 20 }} className="Date_icon" />
                 <DatePicker
                   selected={Data.startDate}
                   onChange={date => {
@@ -63,8 +66,10 @@ const TaskBody = () => {
             </div>
             <div className="time">
               <label>Time</label>
-              <div>
+              <div className="Time">
+                <ScheduleIcon style={{ fontSize: 20 }} className="Time_icon" />
                 <DatePicker
+                  id="DATE"
                   selected={Data.startTime}
                   onChange={time => {
                     changeHandler('startTime', time);
@@ -83,7 +88,7 @@ const TaskBody = () => {
           <div className="Task_Description">
             <p>Assign User:</p>
             <select
-              required
+              required={true}
               name="Please Select a user"
               className="Task_input"
               onChange={dep => {
@@ -103,7 +108,12 @@ const TaskBody = () => {
             </select>
           </div>
           <div className="submit_buttons">
-            <button type="button" className="SUBMIT" onClick={postData}>
+            <button
+              type="button"
+              className="SUBMIT"
+              onClick={postData}
+              disabled={Data.task === ' ' && Data.user === null ? true : false}
+            >
               Save
             </button>
           </div>

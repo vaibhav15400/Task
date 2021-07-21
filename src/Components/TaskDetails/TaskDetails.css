@@ -36,3 +36,14 @@
   display: flex;
   justify-content: center;
 }
+
+.transistions {
+  height: 0;
+  transform: translateY(0);
+  opacity: 0;
+}
+.transistions_x {
+  transform: translateY(0);
+
+  opacity: 1;
+}

@@ -21,11 +21,16 @@
   text-align: left;
   padding: 5px;
 }
-.animate {
-  transition: all 2s;
-  transform: translateX(0px);
+.transistions {
+  height: 0;
+  transition: 1s ease-out;
+  opacity: 0;
 }
-.unanimate {
-  transition: all 2s;
-  transform: translateX(-500px);
+.transistions_x {
+  height: 100%;
+  transition: 1s ease-out;
+  opacity: 1;
+}
+.hover:hover {
+  cursor: pointer;
 }

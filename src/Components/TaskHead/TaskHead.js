@@ -22,13 +22,21 @@ const TaskHead = ({ i }) => {
         </p>
         <span onClick={add_remove} style={{ padding: '3%' }}>
           {toggle ? (
-            <RemoveIcon fontSize="large" />
+            <AddIcon fontSize="large" className="hover" />
           ) : (
-            <AddIcon fontSize="large" />
+            <RemoveIcon fontSize="large" className="hover" />
           )}
         </span>
       </div>
-      <TaskBody className={toggle ? 'animate' : 'unanimate'} />
+      {toggle ? (
+        <div className="transistions">
+          <TaskBody />
+        </div>
+      ) : (
+        <div className="transistions_x">
+          <TaskBody />
+        </div>
+      )}
     </div>
   );
 };

@@ -7,3 +7,13 @@
 button:hover {
   cursor: pointer;
 }
+.transistions {
+  height: 0;
+  transition: 1s ease-out;
+  opacity: 0;
+}
+.transistions_x {
+  height: 100%;
+  transition: 1s ease-out;
+  opacity: 1;
+}
