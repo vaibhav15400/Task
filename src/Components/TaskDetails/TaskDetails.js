@@ -4,7 +4,11 @@ import axios from 'axios';
 import EditIcon from '@material-ui/icons/Edit';
 import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
-import CheckIcon from '@material-ui/icons/Check';
+import SendIcon from '@material-ui/icons/Send';
+import RemoveIcon from '@material-ui/icons/Remove';
+import DateRangeIcon from '@material-ui/icons/DateRange';
+import ScheduleIcon from '@material-ui/icons/Schedule';
+
 import './TaskDetails.css';
 import DeleteIcon from '@material-ui/icons/Delete';
 import transitions from '@material-ui/core/styles/transitions';
@@ -88,12 +92,11 @@ const Component = ({ item, id, active, setToggle }) => {
         </div>
         <span style={{ padding: '3%' }} className={active ? transitions : ''}>
           {active ? (
-            <CheckIcon
+            <RemoveIcon
               style={{ fontSize: 26 }}
               className="hover"
               onClick={() => {
                 setToggle(null);
-                postData();
               }}
             />
           ) : (
@@ -116,7 +119,6 @@ const Component = ({ item, id, active, setToggle }) => {
                 <p>Task Description</p>
                 <input
                   required
-                  disabled={active ? false : true}
                   placeholder={item.task}
                   className="Task_input"
                   defaultValue={item.task}
@@ -130,8 +132,11 @@ const Component = ({ item, id, active, setToggle }) => {
                 <div className="Date">
                   <label>Date</label>
                   <div className="date">
+                    <DateRangeIcon
+                      style={{ fontSize: 20 }}
+                      className="Date_icon"
+                    />
                     <DatePicker
-                      disabled={active ? false : true}
                       selected={newData.startDate}
                       className="Date_set"
                       onChange={date => {
@@ -143,9 +148,12 @@ const Component = ({ item, id, active, setToggle }) => {
                 </div>
                 <div className="time">
                   <label>Time</label>
-                  <div>
+                  <div className="Time">
+                    <ScheduleIcon
+                      style={{ fontSize: 20 }}
+                      className="Time_icon"
+                    />
                     <DatePicker
-                      disabled={active ? false : true}
                       selected={newData.startTime}
                       showTimeSelect
                       showTimeSelectOnly
@@ -164,7 +172,6 @@ const Component = ({ item, id, active, setToggle }) => {
               <div className="Task_Description">
                 <p>Assign User:</p>
                 <select
-                  disabled={active ? false : true}
                   name="Please Select a user"
                   className="Task_input"
                   onChange={dep => {
@@ -187,7 +194,13 @@ const Component = ({ item, id, active, setToggle }) => {
                 <DeleteIcon
                   onClick={deleteData}
                   className="delete_icon"
-                  fontSize="medium"
+                  style={{ color: 'red', fontSize: 35, marginRight: 45 }}
+                />
+                <SendIcon
+                  onClick={deleteData}
+                  className="delete_icon"
+                  fontSize="large"
+                  style={{ color: '#ff9a03', fontSize: 35 }}
                 />
               </div>
             </form>
