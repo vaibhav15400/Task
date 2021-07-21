@@ -15,7 +15,9 @@ const TaskHead = ({ i }) => {
       <div className="Task_title">
         <p className="Task_title_primary">
           TASK &nbsp;
-          <span style={{ color: ' rgb(205, 205, 205)' }}>{i}</span>
+          <span style={{ color: ' rgb(205, 205, 205)' }} className="animate">
+            {console.log(i)}
+          </span>
           {console.log()}
         </p>
         <span onClick={add_remove} style={{ padding: '3%' }}>
@@ -26,7 +28,7 @@ const TaskHead = ({ i }) => {
           )}
         </span>
       </div>
-      {toggle ? <TaskBody className="animate" /> : ' '}
+      <TaskBody className={toggle ? 'animate' : 'unanimate'} />
     </div>
   );
 };

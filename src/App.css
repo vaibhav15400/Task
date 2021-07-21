@@ -3,5 +3,7 @@
   font-size: large;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+}
+button:hover {
+  cursor: pointer;
 }

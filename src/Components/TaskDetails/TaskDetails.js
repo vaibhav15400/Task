@@ -1,21 +1,21 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import CreateIcon from '@material-ui/icons/Create';
-import RemoveIcon from '@material-ui/icons/Remove';
+import EditIcon from '@material-ui/icons/Edit';
 import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
-import DateRangeIcon from '@material-ui/icons/DateRange';
-import ScheduleIcon from '@material-ui/icons/Schedule';
+import CheckIcon from '@material-ui/icons/Check';
 import './TaskDetails.css';
 import DeleteIcon from '@material-ui/icons/Delete';
 
+const U_R_L = `https://task-93a9a-default-rtdb.firebaseio.com`;
 const TaskDetails = () => {
   const [getTasks, setGetTasks] = useState('');
+  const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     axios
-      .get(`https://task-93a9a-default-rtdb.firebaseio.com/task.json`)
+      .get(`${U_R_L}/task.json`)
       .then(res => {
         if (res.data == null) {
           alert('novalue');
@@ -29,40 +29,39 @@ const TaskDetails = () => {
   return (
     <>
       {Object.keys(getTasks).map((item, i) => (
-        <Component item={getTasks[item]} id={item} key={i} />
+        <Component
+          item={getTasks[item]}
+          id={item}
+          key={i}
+          active={toggle === item}
+          setToggle={setToggle}
+        />
       ))}
     </>
   );
 };
 
-const Component = ({ item, id }) => {
-  const [toggle, setToggle] = useState(false);
-  const [isEditable, setIsEditable] = useState(false);
-
-  const Editable = () => {
-    setIsEditable(p => !p);
-    console.log('clicked');
-  };
-  function add_remove() {
-    setToggle(p => !p);
-  }
-
+const Component = ({ item, id, active, setToggle }) => {
+  const newId = id.substring(1);
   const deleteData = async () => {
-    await axios
-      .put(`https://task-93a9a-default-rtdb.firebaseio.com/task.json/${newId}`)
+    await axios;
+    axios
+      .delete(`${U_R_L}/task/${newId}.json`)
       .then(response => {
-        console.log('Status: ', response.status);
-        console.log('Data: ', response.data);
+        console.log(response);
       })
       .catch(err => {
         console.log(err.message);
       });
   };
-  let newId = id.split('-')[1];
+  const postData = async () => {
+    await axios.put(`${U_R_L}/task/${newId}.json`).then(res => {
+      console.log(res.data);
+    });
+  };
 
   let taskTime = new Date(item.startTime);
   let taskDate = new Date(item.startDate);
-  // console.log(taskTime);
 
   return (
     <div className="Task_display">
@@ -73,48 +72,57 @@ const Component = ({ item, id }) => {
             &nbsp;
           </div>
           <span style={{ color: ' rgb(205, 205, 205)' }}>
-            {item.startTime?.split('T')[0]}
+            {item.startDate?.split('T')[0]}
           </span>
         </div>
-        <span onClick={add_remove} style={{ padding: '3%' }}>
-          {toggle ? (
-            <RemoveIcon fontSize="large" onClick={Editable} />
+        <span style={{ padding: '3%' }}>
+          {active ? (
+            <CheckIcon
+              fontSize="large"
+              onClick={() => {
+                setToggle(null);
+                postData();
+              }}
+            />
           ) : (
-            <CreateIcon fontSize="large" onClick={Editable} />
+            <EditIcon
+              fontSize="large"
+              onClick={() => {
+                setToggle(id);
+              }}
+            />
           )}
         </span>
       </div>
-      {toggle ? (
+      {active ? (
         <div>
           <div>
             <div className="Task_Body">
               <div className="Task_Description">
                 <p>Task Description</p>
                 <input
-                  disabled
+                  disabled={active ? false : true}
                   placeholder={item.task}
                   className="Task_input"
+                  defaultValue={item.task}
                 />
               </div>
               <div className="D_T">
                 <div className="Date">
                   <label>Date</label>
                   <div className="date">
-                    <DateRangeIcon
-                      className="date_icon"
-                      style={{ color: ' rgb(205, 205, 205)' }}
+                    <DatePicker
+                      disabled={active ? false : true}
+                      selected={taskDate}
+                      className="Date_set"
                     />
-                    <DatePicker selected={taskDate} className="Date_set" />
                   </div>
                 </div>
                 <div className="time">
                   <label>Time</label>
                   <div>
-                    <ScheduleIcon
-                      className="time_icon"
-                      style={{ color: ' rgb(205, 205, 205)' }}
-                    />
                     <DatePicker
+                      disabled={true}
                       selected={taskTime}
                       showTimeSelect
                       showTimeSelectOnly
@@ -128,7 +136,11 @@ const Component = ({ item, id }) => {
               </div>
               <div className="Task_Description">
                 <p>Assign User:</p>
-                <select name="Please Select a user" className="Task_input">
+                <select
+                  disabled={active ? false : true}
+                  name="Please Select a user"
+                  className="Task_input"
+                >
                   <option defaultValue={item.user} className="select">
                     {item.user}
                   </option>
@@ -140,7 +152,9 @@ const Component = ({ item, id }) => {
                   </option>
                 </select>
               </div>
-              <DeleteIcon onClick={deleteData} className="delete_icon" />
+              <div className="hover">
+                <DeleteIcon onClick={deleteData} className="delete_icon" />
+              </div>
             </div>
           </div>
         </div>

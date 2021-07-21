@@ -2,38 +2,47 @@ import React, { useState } from 'react';
 import './TaskBody.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import DateRangeIcon from '@material-ui/icons/DateRange';
-import ScheduleIcon from '@material-ui/icons/Schedule';
 import axios from 'axios';
 
 const TaskBody = () => {
-  const [startDate, setStartDate] = useState(new Date());
-  const [startTime, setStartTime] = useState(new Date());
-  const [user, setUser] = useState();
-  const [task, setTask] = useState(null);
+  const [Data, setData] = useState({
+    task: ' ',
+    user: null,
+    startTime: new Date(),
+    startDate: new Date(),
+  });
+  const changeHandler = (field, newValue) => {
+    setData(prev => {
+      const old = { ...prev };
+      old[field] = newValue;
+      return old;
+    });
+  };
 
   function postData() {
-    const Data = { task, startDate, startTime, user };
     axios
       .post(`https://task-93a9a-default-rtdb.firebaseio.com/task.json`, Data)
       .then(res => {
-        window.location.reload();
-        alert('sucess');
+        alert('sucess', res.data);
+        console.log(Data);
       });
+  }
+  function reset(e) {
+    e.preventDefault();
   }
 
   return (
     <>
-      <div>
+      <form onChange={reset}>
         <div className="Task_Body">
           <div className="Task_Description">
             <p>Task Description</p>
             <input
-              required
+              required={true}
               placeholder="Enter Task"
               className="Task_input"
               onChange={desp => {
-                setTask(desp.target.value);
+                changeHandler('task', desp.target.value);
                 console.log(desp.target.value);
               }}
             />
@@ -42,14 +51,10 @@ const TaskBody = () => {
             <div className="Date">
               <label>Date</label>
               <div className="date">
-                <DateRangeIcon
-                  className="date_icon"
-                  style={{ color: ' rgb(205, 205, 205)' }}
-                />
                 <DatePicker
-                  selected={startDate}
+                  selected={Data.startDate}
                   onChange={date => {
-                    setStartDate(date);
+                    changeHandler('startDate', date);
                     console.log(date);
                   }}
                   className="Date_set"
@@ -59,15 +64,11 @@ const TaskBody = () => {
             <div className="time">
               <label>Time</label>
               <div>
-                <ScheduleIcon
-                  className="time_icon"
-                  style={{ color: ' rgb(205, 205, 205)' }}
-                />
                 <DatePicker
-                  selected={startTime}
+                  selected={Data.startTime}
                   onChange={time => {
-                    setStartTime(time);
-                    console.log(time.toTimeString());
+                    changeHandler('startTime', time);
+                    console.log(time);
                   }}
                   showTimeSelect
                   showTimeSelectOnly
@@ -85,8 +86,9 @@ const TaskBody = () => {
               required
               name="Please Select a user"
               className="Task_input"
-              onChange={users => {
-                setUser(users.target.value);
+              onChange={dep => {
+                changeHandler('user', dep.target.value);
+                console.log(dep.target.value);
               }}
             >
               <option defaultValue="Please Select a user" className="select">
@@ -101,15 +103,12 @@ const TaskBody = () => {
             </select>
           </div>
           <div className="submit_buttons">
-            <button type="reset" className="RESET">
-              Cancel
-            </button>
-            <button type="submit" className="SUBMIT" onClick={postData}>
+            <button type="button" className="SUBMIT" onClick={postData}>
               Save
             </button>
           </div>
         </div>
-      </div>
+      </form>
     </>
   );
 };

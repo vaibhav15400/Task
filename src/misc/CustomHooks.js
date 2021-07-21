@@ -7,3 +7,7 @@ export function useModalState(deafultValue = false) {
   const close = useCallback(() => setIsOpen(false), []);
   return { isOpen, open, close };
 }
+// export function Contextstate(children) {
+//   const Context = createContext(children);
+//   return <Context.Provider>{children}</Context.Provider>;
+// }

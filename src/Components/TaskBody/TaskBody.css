@@ -3,6 +3,7 @@
   border-top: none;
   padding: 1rem;
   border-radius: 0 0 4px 4px;
+  text-align: left;
 }
 .Task_input {
   width: 100%;
@@ -32,17 +33,34 @@
 .Date_set {
   width: 100px;
   z-index: 500;
+  position: relative;
   padding: 5px;
   border: 1px solid #cdcdcd;
   background-color: white;
+  cursor: pointer;
+}
+
+.date::after {
+  background-image: url(../../assests/date.svg);
+  content: '';
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  height: 20px;
+  width: 20px;
+  position: fixed;
+  z-index: 1000;
+  background-size: contain;
 }
 .date {
   position: relative;
   margin: 5px 15px 5px 0;
+  transform: translateY(0);
 }
 .date_icon {
   position: absolute;
   right: 0;
+  opacity: 0.5;
   margin: 7px;
   cursor: pointer;
   z-index: 1000;
@@ -52,32 +70,35 @@
   z-index: 500;
   padding: 5px;
   border: 1px solid #cdcdcd;
+  cursor: pointer;
   background-color: white;
 }
 .time {
   position: relative;
   margin: 5px 15px 5px 0;
+  transform: translateY(0);
 }
-.time_icon {
-  position: absolute;
-  right: 0;
-  margin: 7px;
-  cursor: pointer;
+.time::after {
+  background-image: url(../../assests/clock.svg);
+  content: '';
+  top: 60%;
+  right: 5px;
+  transform: translateY(-50%);
+  height: 20px;
+  width: 20px;
+  position: fixed;
   z-index: 1000;
+  background-size: contain;
 }
+
 .submit_buttons {
   display: flex;
-  margin: 20px;
+  justify-content: center;
 }
-.SUBMIT,
-.RESET {
+.SUBMIT {
   background-color: #47ba7f;
   padding: 10px;
   border: none;
   width: 50%;
-  margin-left: 20px;
   border-radius: 9%;
-}
-.RESET {
-  background-color: #cdcdcd !important;
 }

@@ -28,14 +28,11 @@
   border: 1px solid #cdcdcd;
   background-color: white;
 }
-.time {
-  position: relative;
-  margin: 5px 15px 5px 0;
-}
-.time_icon {
-  position: absolute;
-  right: 0;
-  margin: 7px;
+.hover :hover {
   cursor: pointer;
-  z-index: 1000;
+}
+
+.hover {
+  display: flex;
+  justify-content: center;
 }
