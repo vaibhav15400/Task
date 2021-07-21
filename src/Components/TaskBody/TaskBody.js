@@ -61,7 +61,7 @@ const TaskBody = () => {
                     console.log(date);
                   }}
                   className="Date_set"
-                />
+                ></DatePicker>
               </div>
             </div>
             <div className="time">

@@ -52,12 +52,14 @@
   display: flex;
 }
 .Date_icon {
+  pointer-events: none;
   position: absolute;
   right: 0;
   color: rgb(158, 156, 158);
   margin: 3px;
   cursor: pointer;
   z-index: 1000;
+  -webkit-background-clip: content-box;
 }
 .Time_set {
   width: 90px;
@@ -78,6 +80,7 @@
   color: rgb(158, 156, 158);
   margin: 3px;
   cursor: pointer;
+  pointer-events: none;
   z-index: 1000;
 }
 .submit_buttons {
