@@ -4,13 +4,11 @@ import axios from 'axios';
 import EditIcon from '@material-ui/icons/Edit';
 import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
-import SendIcon from '@material-ui/icons/Send';
 import RemoveIcon from '@material-ui/icons/Remove';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 
 import './TaskDetails.css';
-import DeleteIcon from '@material-ui/icons/Delete';
 import transitions from '@material-ui/core/styles/transitions';
 
 const U_R_L = `https://task-93a9a-default-rtdb.firebaseio.com`;
@@ -77,6 +75,8 @@ const Component = ({ item, id, active, setToggle }) => {
       console.log(res.data);
     });
   };
+  let taskTime = new Date(item.startTime);
+  let taskDate = new Date(item.startDate);
 
   return (
     <div className="Task_display">
@@ -137,7 +137,7 @@ const Component = ({ item, id, active, setToggle }) => {
                       className="Date_icon"
                     />
                     <DatePicker
-                      selected={newData.startDate}
+                      selected={taskDate}
                       className="Date_set"
                       onChange={date => {
                         changeHandler('startDate', date);
@@ -154,7 +154,7 @@ const Component = ({ item, id, active, setToggle }) => {
                       className="Time_icon"
                     />
                     <DatePicker
-                      selected={newData.startTime}
+                      selected={taskTime}
                       showTimeSelect
                       showTimeSelectOnly
                       timeIntervals={30}
@@ -191,17 +191,30 @@ const Component = ({ item, id, active, setToggle }) => {
                 </select>
               </div>
               <div className="hover">
-                <DeleteIcon
-                  onClick={deleteData}
-                  className="delete_icon"
-                  style={{ color: 'red', fontSize: 35, marginRight: 45 }}
-                />
-                <SendIcon
-                  onClick={deleteData}
-                  className="delete_icon"
-                  fontSize="large"
-                  style={{ color: '#ff9a03', fontSize: 35 }}
-                />
+                <div className="submit_buttons">
+                  <button
+                    type="button"
+                    className="delete"
+                    onClick={deleteData}
+                    // disabled={
+                    //   Data.task === ' ' && Data.user === null ? true : false
+                    // }
+                  >
+                    Delete
+                  </button>
+                </div>
+                <div className="submit_buttons">
+                  <button
+                    type="submit"
+                    className="update"
+                    onClick={postData}
+                    // disabled={
+                    //   Data.task === ' ' && Data.user === null ? true : false
+                    // }
+                  >
+                    update
+                  </button>
+                </div>
               </div>
             </form>
           </div>

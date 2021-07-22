@@ -34,7 +34,7 @@
 
 .hover {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .transistions {
@@ -44,6 +44,22 @@
 }
 .transistions_x {
   transform: translateY(0);
-
   opacity: 1;
+}
+
+.delete {
+  background-color: rgb(240, 71, 71);
+  border: none;
+  border-radius: 9%;
+  padding: 7px;
+  text-transform: capitalize;
+  font-size: 14px;
+}
+.update {
+  background-color: #ff9a03;
+  border: none;
+  padding: 7px;
+  text-transform: capitalize;
+  border-radius: 9%;
+  font-size: 14px;
 }

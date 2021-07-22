@@ -25,7 +25,7 @@ const TaskBody = () => {
     axios
       .post(`https://task-93a9a-default-rtdb.firebaseio.com/task.json`, Data)
       .then(res => {
-        alert('sucess', res.data);
+        alert('sucessfully data sent');
         console.log(Data);
       });
   }
